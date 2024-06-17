@@ -1,0 +1,24 @@
+name: Replace Links in README
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      run: npm install
+    - name: Run Replace Link Action
+      id: replace-link
+      uses: ./.github/actions/replace-link
+      with:
+        readme-path: 'README.md'
+    - name: Print Updated Content
+      run: echo "${{ steps.replace-link.outputs.new-content }}"
+
