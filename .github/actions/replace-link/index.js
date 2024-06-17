@@ -12,18 +12,29 @@ const getEnvVariable = (key, defaultValue) => {
   return process.env[key] || defaultValue;
 };
 
-// Get the path to the README.md file
-const readmePath = getEnvVariable('readme-path', null);
 
-if (!readmePath) {
-  core.setFailed("The 'readme-path' input is required and not set.");
+// Get the path to the input file (README.md by default)
+const inputFilePath = getEnvVariable('input-file', 'README.md');
+
+// Get the path to the output file (index.md by default)
+const outputFilePath = getEnvVariable('output-file', 'index.md');
+
+if (!inputFilePath) {
+  core.setFailed("The 'input-file' input is required and not set.");
   process.exit(1);
 } else {
-  console.log(`The path to the README.md file is: ${readmePath}`);
+  console.log(`The path to the input file is: ${inputFilePath}`);
+}
+
+if (!outputFilePath) {
+  core.setFailed("The 'output-file' input is required and not set.");
+  process.exit(1);
+} else {
+  console.log(`The path to the output file is: ${outputFilePath}`);
 }
 
 // Read the Markdown file
-let content = fs.readFileSync(readmePath, 'utf8');
+let content = fs.readFileSync(inputFilePath, 'utf8');
 console.log('Original Content:', content);
 
 // Define the markers
@@ -55,14 +66,12 @@ if (startIndex !== -1 && endIndex !== -1) {
                        buttonHtml +
                        content.slice(endIndex + endMarker.length);
     
-    // Write the updated content back to README.md
-    fs.writeFileSync(readmePath, newContent, 'utf8');
+    // Write the updated content back to output file
+    fs.writeFileSync(outputFilePath, newContent, 'utf8');
     console.log('Updated Content:', newContent);
 
-    // Write the updated content to an output file for debugging purposes
-    const outputPath = 'output.md';
-    fs.writeFileSync(outputPath, newContent, 'utf8');
-    core.setOutput('new-content-path', outputPath);
+    // Set the output path for the action
+    core.setOutput('new-content-path', outputFilePath);
   }
 } else {
   console.log("Markers not found in the content.");

@@ -20,7 +20,8 @@ jobs:
       id: replace-link
       uses: ./.github/actions/replace-link
       with:
-        readme-path: 'README.md'
+        input-file: 'README.md' # This can be omitted since it's the default
+        output-file: 'index.md' # This can be omitted since it's the default
     - name: Print Updated Content
       run: cat ${{ steps.replace-link.outputs.new-content-path }}
 

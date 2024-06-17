@@ -1,9 +1,14 @@
 name: 'Replace Link with Button'
 description: 'GitHub Action that replaces a marked link in a file with a button to display the file inline when published on GitHub Pages.'
 inputs:
-  readme-path:
-    description: 'Path to the file (e.g., README.md)'
-    required: true
+  input-file:
+    description: 'Path to the input file (e.g., README.md)'
+    required: false
+    default: 'README.md'
+  output-file:
+    description: 'Path to the output file (e.g., index.md)'
+    required: false
+    default: 'index.md'
 runs:
   using: 'node20'
   main: 'index.js'
