@@ -22,5 +22,5 @@ jobs:
       with:
         readme-path: 'README.md'
     - name: Print Updated Content
-      run: echo "${{ steps.replace-link.outputs.new-content }}"
+      run: cat ${{ steps.replace-link.outputs.new-content-path }}
 

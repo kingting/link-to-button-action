@@ -59,8 +59,10 @@ if (startIndex !== -1 && endIndex !== -1) {
     fs.writeFileSync(readmePath, newContent, 'utf8');
     console.log('Updated Content:', newContent);
 
-    // Set the output to the new content for debugging purposes
-    core.setOutput('new-content', newContent);
+    // Write the updated content to an output file for debugging purposes
+    const outputPath = 'output.md';
+    fs.writeFileSync(outputPath, newContent, 'utf8');
+    core.setOutput('new-content-path', outputPath);
   }
 } else {
   console.log("Markers not found in the content.");
