@@ -13,7 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Node.js
-      run: npm install
+      run: |
+        cd .github/actions/replace-link
+        npm install
     - name: Run Replace Link Action
       id: replace-link
       uses: ./.github/actions/replace-link
